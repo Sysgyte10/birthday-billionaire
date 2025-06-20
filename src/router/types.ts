@@ -9,7 +9,9 @@ export interface AuthStackParamList extends ParamListBase {
   SignUp: undefined;
   Login: undefined;
   ForgotPassword: undefined;
-  VerificationCode: undefined;
+  VerificationCode: {
+    email: string;
+  };
   ChangePassword: undefined;
 }
 
