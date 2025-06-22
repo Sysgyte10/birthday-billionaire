@@ -11,51 +11,48 @@ import { ScrollContainer } from "../ScrollContainer";
 import { getStarted } from "@src/constants/get-started";
 import { Image } from "expo-image";
 
-export const GetStarted =
-  ({}: AuthScreenProps<authScreenNames.GET_STARTED>) => {
-    return (
-      <>
-        <CommonStatusBar style='light' bgColor={colors.goldenRod} />
-        <AppWrapper safeArea style={styles.screen} bgColor={colors.white}>
-          <FormTitle
-            title="See what you're going to enjoy"
-            desc='You get to see snippet of different gifts you can send to your friends'
-            descStyle={styles.desc}
-          />
-          <ScrollContainer>
-            <View style={styles.scrollContainer}>
-              {getStarted &&
-                getStarted.map((item, index) => (
-                  <View style={styles.imgCardContainer} key={index}>
-                    <Image
-                      style={styles.img}
-                      source={item}
-                      contentFit='cover'
-                    />
-                  </View>
-                ))}
-            </View>
-            <View
-              style={{
-                paddingVertical: DVH(10),
-              }}
-            />
-          </ScrollContainer>
-          <View style={styles.btnContainer}>
-            <CustomButton
-              title='Get Started'
-              buttonType='Solid'
-              goldenRod
-              textWhite
-              onPress={() => {}}
-              textType='semi-bold'
-              btnStyle={styles.getStartedBtn}
-            />
+export const GetStarted = ({
+  navigation,
+}: AuthScreenProps<authScreenNames.GET_STARTED>) => {
+  return (
+    <>
+      <CommonStatusBar style='light' bgColor={colors.goldenRod} />
+      <AppWrapper safeArea style={styles.screen} bgColor={colors.white}>
+        <FormTitle
+          title="See what you're going to enjoy"
+          desc='You get to see snippet of different gifts you can send to your friends'
+          descStyle={styles.desc}
+        />
+        <ScrollContainer>
+          <View style={styles.scrollContainer}>
+            {getStarted &&
+              getStarted.map((item, index) => (
+                <View style={styles.imgCardContainer} key={index}>
+                  <Image style={styles.img} source={item} contentFit='cover' />
+                </View>
+              ))}
           </View>
-        </AppWrapper>
-      </>
-    );
-  };
+          <View
+            style={{
+              paddingVertical: DVH(10),
+            }}
+          />
+        </ScrollContainer>
+        <View style={styles.btnContainer}>
+          <CustomButton
+            title='Get Started'
+            buttonType='Solid'
+            goldenRod
+            textWhite
+            onPress={() => navigation.navigate(authScreenNames.SIGN_UP)}
+            textType='semi-bold'
+            btnStyle={styles.getStartedBtn}
+          />
+        </View>
+      </AppWrapper>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   screen: {

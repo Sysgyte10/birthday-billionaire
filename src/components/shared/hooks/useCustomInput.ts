@@ -24,7 +24,7 @@ export const useCustomInput = () => {
     } else {
       return {
         borderColor: "#d3cacaf5",
-        iconColor: "#484848",
+        iconColor: colors.goldenRod,
       };
     }
   };

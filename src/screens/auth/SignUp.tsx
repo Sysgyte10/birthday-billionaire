@@ -2,12 +2,129 @@ import { authScreenNames } from "@src/navigation/navigation-names";
 import { AuthScreenProps } from "@src/router/types";
 import React from "react";
 import { AppWrapper } from "../AppWrapper";
-import { Text } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { CommonStatusBar, FormTitle } from "@src/common";
+import { DVH, moderateScale } from "@src/resources/responsiveness";
+import { colors } from "@src/resources/color/color";
+import { useStepper } from "@src/stepper/hooks/useStepper";
+import { signUpSteps } from "@src/constants/signup-steps";
+import { useForm } from "react-hook-form";
+import { signUpFormStep1, signUpFormStep2 } from "@src/form/types/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  signUpFormStep1ValidationRule,
+  signUpFormStep2ValidationRule,
+} from "@src/form/validation-rule/rule";
+import { CustomButton } from "@src/components/shared";
+import { Step1 } from "@src/components/auth";
+import { ScrollContainer } from "../ScrollContainer";
 
 export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
+  const {
+    activeStepIndex,
+    nextStep,
+    prevStep,
+    submittedStepsIndex,
+    btnStepperText,
+  } = useStepper(signUpSteps, "Submit");
+
+  //form 1 validation control
+  const {
+    control: step1Control,
+    formState: { errors: step1Errors },
+    trigger: step1Trigger,
+    setValue: setStep1Value,
+    getValues: getStep1Value,
+    clearErrors: clearStep1Errors,
+  } = useForm<signUpFormStep1>({
+    mode: "onChange",
+    resolver: yupResolver(signUpFormStep1ValidationRule),
+  });
+
+  //form 2 validation control
+  const {
+    control: step2Control,
+    formState: { errors: step2Errors },
+    trigger: step2Trigger,
+    setValue: setStep2Value,
+    getValues: getStep2Value,
+    clearErrors: clearStep2Errors,
+  } = useForm<signUpFormStep2>({
+    mode: "onChange",
+    resolver: yupResolver(signUpFormStep2ValidationRule),
+  });
+
+  const onSubmit = async () => {
+    let isValid = false;
+    if (activeStepIndex === 0) {
+      isValid = await step1Trigger();
+      if (isValid) nextStep();
+    } else if (activeStepIndex === 1) {
+      isValid = await step2Trigger();
+      if (isValid) {
+        console.log("Operation successful");
+      }
+    }
+  };
+
+  const steps = [
+    <Step1
+      formProps={{
+        control: step1Control,
+        errors: step1Errors,
+        setValues: setStep1Value,
+        clearErrors: clearStep1Errors,
+      }}
+    />,
+  ];
+
   return (
-    <AppWrapper safeArea>
-      <Text>Sign Up</Text>
-    </AppWrapper>
+    <>
+      <CommonStatusBar style='dark' bgColor={colors.white} />
+      <AppWrapper safeArea style={styles.screen} bgColor={colors.white}>
+        <FormTitle title='Get Started' desc="Let's get you on board" />
+        <ScrollContainer>
+          {steps[activeStepIndex]}
+          <View
+            style={{
+              paddingVertical: DVH(30),
+            }}
+          />
+        </ScrollContainer>
+        <View style={styles.bottomActionContainer}>
+          <CustomButton
+            title='Next'
+            textType='semi-bold'
+            textSize={15}
+            goldenRod
+            textWhite
+            onPress={async () => await onSubmit()}
+            buttonType='Solid'
+            btnStyle={styles.btn}
+          />
+        </View>
+      </AppWrapper>
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    paddingHorizontal: moderateScale(15),
+    marginTop: moderateScale(-30),
+  },
+  bottomActionContainer: {
+    position: "absolute",
+    bottom: moderateScale(0),
+    paddingBottom: moderateScale(35),
+    width: "100%",
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    paddingTop: moderateScale(5),
+  },
+  btn: {
+    borderRadius: moderateScale(50),
+    paddingVertical: moderateScale(13),
+  },
+});
