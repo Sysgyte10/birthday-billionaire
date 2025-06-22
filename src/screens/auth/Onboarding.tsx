@@ -16,7 +16,9 @@ import { colors } from "@src/resources/color/color";
 import { Image } from "expo-image";
 import { AntDesign } from "@expo/vector-icons";
 
-export const Onboarding = ({}: AuthScreenProps<authScreenNames.ONBOARDING>) => {
+export const Onboarding = ({
+  navigation,
+}: AuthScreenProps<authScreenNames.ONBOARDING>) => {
   const [currIndex, setCurrIndex] = useState<number>(0);
   return (
     <AppWrapper bgColor={colors.white} style={styles.screen}>
@@ -63,10 +65,12 @@ export const Onboarding = ({}: AuthScreenProps<authScreenNames.ONBOARDING>) => {
           </CustomText>
         </View>
         <View style={styles.continueContainer}>
-          <CustomText size={15} type='semi-bold' black>
+          <CustomText size={15} type='regular' black>
             Continue
           </CustomText>
-          <TouchableOpacity style={styles.continueBtn}>
+          <TouchableOpacity
+            style={styles.continueBtn}
+            onPress={() => navigation.navigate(authScreenNames.GET_STARTED)}>
             <AntDesign
               name='arrowright'
               size={moderateScale(20)}

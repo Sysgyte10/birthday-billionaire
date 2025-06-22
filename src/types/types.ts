@@ -25,3 +25,5 @@ export type onboardingType = {
   title: string;
   desc: string;
 }[];
+
+export type getStartedType = ImageSourcePropType[];
