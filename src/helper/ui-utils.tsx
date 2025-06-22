@@ -11,3 +11,20 @@ export const ModalMessageProvider = {
     modalRef?.current?.show(msg);
   },
 };
+
+export const returnSignUpFormHeader = (index: number) => {
+  switch (index) {
+    case 1:
+      return {
+        title: "Get Started",
+        description: "Let's get you on board",
+      };
+    case 2:
+      return {
+        title: "Let's get to Know you a little bit",
+        description: "Tell us something we can save your profile",
+      };
+    default:
+      break;
+  }
+};

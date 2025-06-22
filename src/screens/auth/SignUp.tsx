@@ -2,8 +2,8 @@ import { authScreenNames } from "@src/navigation/navigation-names";
 import { AuthScreenProps } from "@src/router/types";
 import React from "react";
 import { AppWrapper } from "../AppWrapper";
-import { StyleSheet, View } from "react-native";
-import { CommonStatusBar, FormTitle } from "@src/common";
+import { Platform, StyleSheet, View } from "react-native";
+import { CommonStatusBar, FormTitle, TextAction } from "@src/common";
 import { DVH, moderateScale } from "@src/resources/responsiveness";
 import { colors } from "@src/resources/color/color";
 import { useStepper } from "@src/stepper/hooks/useStepper";
@@ -18,6 +18,8 @@ import {
 import { CustomButton } from "@src/components/shared";
 import { Step1 } from "@src/components/auth";
 import { ScrollContainer } from "../ScrollContainer";
+import { returnSignUpFormHeader } from "@src/helper/ui-utils";
+import { Step2 } from "@src/components/auth/sign-up/step2";
 
 export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
   const {
@@ -26,7 +28,7 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
     prevStep,
     submittedStepsIndex,
     btnStepperText,
-  } = useStepper(signUpSteps, "Submit");
+  } = useStepper(signUpSteps, "Sign Up");
 
   //form 1 validation control
   const {
@@ -76,24 +78,35 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
         clearErrors: clearStep1Errors,
       }}
     />,
+    <Step2
+      formProps={{
+        control: step2Control,
+        errors: step2Errors,
+        setValues: setStep2Value,
+        clearErrors: clearStep2Errors,
+      }}
+    />,
   ];
 
   return (
     <>
       <CommonStatusBar style='dark' bgColor={colors.white} />
       <AppWrapper safeArea style={styles.screen} bgColor={colors.white}>
-        <FormTitle title='Get Started' desc="Let's get you on board" />
+        <FormTitle
+          title={returnSignUpFormHeader(activeStepIndex + 1)?.title}
+          desc={returnSignUpFormHeader(activeStepIndex + 1)?.description}
+        />
         <ScrollContainer>
           {steps[activeStepIndex]}
           <View
             style={{
-              paddingVertical: DVH(30),
+              paddingVertical: Platform.OS === "ios" ? DVH(10) : DVH(25),
             }}
           />
         </ScrollContainer>
         <View style={styles.bottomActionContainer}>
           <CustomButton
-            title='Next'
+            title={String(btnStepperText)}
             textType='semi-bold'
             textSize={15}
             goldenRod
@@ -101,6 +114,11 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
             onPress={async () => await onSubmit()}
             buttonType='Solid'
             btnStyle={styles.btn}
+          />
+          <TextAction
+            message='Already have an account,'
+            actionLabel='Login'
+            onPressAction={() => {}}
           />
         </View>
       </AppWrapper>
@@ -116,7 +134,8 @@ const styles = StyleSheet.create({
   bottomActionContainer: {
     position: "absolute",
     bottom: moderateScale(0),
-    paddingBottom: moderateScale(35),
+    paddingBottom:
+      Platform.OS === "ios" ? moderateScale(20) : moderateScale(35),
     width: "100%",
     alignSelf: "center",
     justifyContent: "center",

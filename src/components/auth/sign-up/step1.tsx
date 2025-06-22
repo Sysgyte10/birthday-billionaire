@@ -25,7 +25,9 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
             showErrorText
             error={props?.errors?.fullName?.message}
             placeholder='Enter you full name'
+            placeHolderTextColor={"#717171"}
             titleStyle={styles.inputTitle}
+            style={styles.input}
           />
         )}
         name='fullName'
@@ -45,6 +47,8 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
             showErrorText
             error={props?.errors?.emailAddress?.message}
             placeholder='Enter you email address'
+            placeHolderTextColor={"#717171"}
+            titleStyle={styles.inputTitle}
           />
         )}
         name='emailAddress'
@@ -64,6 +68,8 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
             showErrorText
             error={props?.errors?.userName?.message}
             placeholder='Enter you username'
+            placeHolderTextColor={"#717171"}
+            titleStyle={styles.inputTitle}
           />
         )}
         name='userName'
@@ -83,6 +89,8 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
             showErrorText
             error={props?.errors?.dob?.message}
             placeholder='Enter you date of birth'
+            placeHolderTextColor={"#717171"}
+            titleStyle={styles.inputTitle}
           />
         )}
         name='dob'
@@ -101,6 +109,8 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
             showErrorText
             error={props?.errors?.password?.message}
             placeholder='Enter your password'
+            placeHolderTextColor={"#717171"}
+            titleStyle={styles.inputTitle}
           />
         )}
         name='password'
@@ -112,10 +122,13 @@ export const Step1: React.FC<IStep1Props> = ({ formProps }) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    gap: moderateScale(10),
+    gap: moderateScale(20),
     marginTop: moderateScale(25),
   },
   inputTitle: {
     fontSize: moderateScale(12),
+  },
+  input: {
+    backgroundColor: "#F5F5F5",
   },
 });

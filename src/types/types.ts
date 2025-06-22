@@ -27,3 +27,9 @@ export type onboardingType = {
 }[];
 
 export type getStartedType = ImageSourcePropType[];
+
+export type imageFromMediaType = {
+  uri?: string;
+  name?: string;
+  type?: string;
+};

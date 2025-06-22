@@ -7,3 +7,9 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+export const extractFileName = (uri: string) => {
+  if (uri) {
+    return uri.split("/").pop(); // Gets the last part of the URI
+  }
+};
