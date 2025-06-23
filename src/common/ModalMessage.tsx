@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { Modal, View, StyleSheet } from "react-native";
+import { Modal, View, StyleSheet, Platform, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { CustomButton, CustomText } from "@src/components/shared";
 import { DVH, DVW, moderateScale } from "@src/resources/responsiveness";
@@ -31,64 +31,75 @@ export const ModalMessage = forwardRef<IGlobalModalMessageRef>((props, ref) => {
   }));
 
   return (
-    <Modal visible={visible} transparent animationType='fade'>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Image
-            source={
-              modalData.msgType === "ERROR"
-                ? require("@src/assets/png/danger.png")
-                : modalData?.msgType === "FAILED"
-                ? require("@src/assets/png/warning.png")
-                : modalData?.msgType === "SUCCESS"
-                ? require("@src/assets/png/success.png")
-                : modalData?.msgType === "WARNING"
-                ? require("@src/assets/png/warning.png")
-                : undefined
-            }
-            style={styles.icon}
-          />
-          <CustomText
-            size={16}
-            type='semi-bold'
-            black
+    <View>
+      <Modal visible={visible} transparent animationType='slide'>
+        <View style={styles.container}>
+          <Pressable
             style={{
-              textAlign: "center",
-            }}>
-            {modalData.title}
-          </CustomText>
-          <CustomText
-            size={14}
-            type='regular'
-            black
-            style={{
-              textAlign: "center",
-            }}>
-            {modalData.description}
-          </CustomText>
-          <CustomButton
-            title='OK'
+              width: "100%",
+              height: "60%",
+            }}
             onPress={() => setVisible(false)}
-            buttonType='Solid'
-            textType='medium'
-            textWhite
-            btnStyle={[
-              styles.button,
-              {
-                backgroundColor:
-                  modalData?.msgType === "SUCCESS"
-                    ? "#0C8242"
-                    : modalData?.msgType === "ERROR"
-                    ? colors.danger
-                    : modalData?.msgType === "FAILED"
-                    ? "#CDDC27"
-                    : colors.danger,
-              },
-            ]}
           />
+          <View style={styles.content}>
+            <Image
+              source={
+                modalData.msgType === "ERROR"
+                  ? require("@src/assets/png/danger.png")
+                  : modalData?.msgType === "FAILED"
+                  ? require("@src/assets/png/warning.png")
+                  : modalData?.msgType === "SUCCESS"
+                  ? require("@src/assets/png/success.png")
+                  : modalData?.msgType === "WARNING"
+                  ? require("@src/assets/png/warning.png")
+                  : undefined
+              }
+              style={styles.icon}
+            />
+            <CustomText
+              size={16}
+              type='semi-bold'
+              black
+              style={{
+                textAlign: "center",
+              }}>
+              {modalData.title}
+            </CustomText>
+            <CustomText
+              size={14}
+              type='regular'
+              black
+              style={{
+                textAlign: "center",
+              }}>
+              {modalData.description}
+            </CustomText>
+            <CustomButton
+              title='OK'
+              onPress={() => setVisible(false)}
+              buttonType='Solid'
+              textType='medium'
+              textWhite
+              btnStyle={[
+                styles.button,
+                {
+                  backgroundColor:
+                    modalData?.msgType === "SUCCESS"
+                      ? "#0C8242"
+                      : modalData?.msgType === "ERROR"
+                      ? colors.danger
+                      : modalData?.msgType === "FAILED"
+                      ? "#CDDC27"
+                      : modalData?.msgType === "WARNING"
+                      ? colors.goldenRod
+                      : undefined,
+                },
+              ]}
+            />
+          </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
+    </View>
   );
 });
 
@@ -96,11 +107,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    paddingBottom:
+      Platform.OS === "ios" ? moderateScale(25) : moderateScale(35),
   },
   content: {
-    width: "85%",
+    width: "90%",
     backgroundColor: "#fff",
     borderRadius: moderateScale(10),
     padding: moderateScale(20),

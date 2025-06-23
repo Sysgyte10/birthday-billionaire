@@ -12,6 +12,7 @@ import { colors } from "@src/resources/color/color";
 import { FormTitle, TextAction } from "@src/common";
 import { CustomButton, CustomInput } from "@src/components/shared";
 import { ScrollContainer } from "../ScrollContainer";
+import { ModalMessageProvider } from "@src/helper/ui-utils";
 
 export const Login = ({
   navigation,
@@ -27,7 +28,12 @@ export const Login = ({
 
   const onSubmit = (data: loginFormTypes) => {
     if (data) {
-      console.log(data);
+      ModalMessageProvider.showModalMsg({
+        msgType: "SUCCESS",
+        title: "Login Successful",
+        description:
+          "The user was logged in successfully. You can now proceed to home page",
+      });
     }
   };
   return (
