@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { getButtonBtnState } from "../function/getButtonState";
 
-export const useStepper = (data: string[], submitText?: string) => {
+export const useStepper = (
+  data: string[],
+  processingText?: string,
+  submitText?: string
+) => {
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [submittedStepsIndex, setSubmittedStepsIndex] = useState<number[]>([]);
   const [btnStepperText, setBtnStepperText] = useState<string | undefined>("");

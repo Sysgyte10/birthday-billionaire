@@ -21,14 +21,14 @@ import { ScrollContainer } from "../ScrollContainer";
 import { returnSignUpFormHeader } from "@src/helper/ui-utils";
 import { Step2 } from "@src/components/auth/sign-up/step2";
 
-export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
-  const {
-    activeStepIndex,
-    nextStep,
-    prevStep,
-    submittedStepsIndex,
-    btnStepperText,
-  } = useStepper(signUpSteps, "Sign Up");
+export const SignUp = ({
+  navigation,
+}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
+  const { activeStepIndex, nextStep, btnStepperText } = useStepper(
+    signUpSteps,
+    "Continue",
+    "Sign Up"
+  );
 
   //form 1 validation control
   const {
@@ -76,6 +76,7 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
         errors: step1Errors,
         setValues: setStep1Value,
         clearErrors: clearStep1Errors,
+        getValues: getStep1Value,
       }}
     />,
     <Step2
@@ -84,6 +85,7 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
         errors: step2Errors,
         setValues: setStep2Value,
         clearErrors: clearStep2Errors,
+        getValue: getStep2Value,
       }}
     />,
   ];
@@ -118,7 +120,7 @@ export const SignUp = ({}: AuthScreenProps<authScreenNames.SIGN_UP>) => {
           <TextAction
             message='Already have an account,'
             actionLabel='Login'
-            onPressAction={() => {}}
+            onPressAction={() => navigation.navigate(authScreenNames.LOGIN)}
           />
         </View>
       </AppWrapper>

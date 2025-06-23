@@ -1,10 +1,11 @@
 export const getButtonBtnState = (
   activeStepNumb: number,
   arrLengthVal: number,
-  lastBtnTextValue?: string
+  lastBtnTextValue?: string,
+  processingBtnTxtValue?: string
 ) => {
   if (activeStepNumb !== arrLengthVal) {
-    return "Next";
+    return processingBtnTxtValue ? processingBtnTxtValue : "Next";
   } else if (activeStepNumb === arrLengthVal) {
     return lastBtnTextValue ? lastBtnTextValue : "Submit";
   }

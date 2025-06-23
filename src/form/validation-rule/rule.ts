@@ -25,3 +25,8 @@ export const signUpFormStep2ValidationRule = yup.object().shape({
   profilePhoto: yup.string().required("profile photo not selected"),
   describeSelfInWords: yup.string().required("this field is required"),
 });
+
+export const loginFormValidationRule = yup.object().shape({
+  userName: yup.string().required("username is required"),
+  password: yup.string().required("password is required"),
+});

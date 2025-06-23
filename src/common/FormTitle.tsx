@@ -39,5 +39,6 @@ export const FormTitle: React.FC<IFormTitleProps> = ({
 const styles = StyleSheet.create({
   container: {
     gap: moderateScale(5),
+    paddingBottom: moderateScale(10),
   },
 });
