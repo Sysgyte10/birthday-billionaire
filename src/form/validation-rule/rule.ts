@@ -37,3 +37,14 @@ export const forgotPassFormValidationRule = yup.object().shape({
     .email("invalid email address")
     .required("email is required"),
 });
+
+export const changePasswordFormValidationRule = yup.object().shape({
+  oldPassword: yup.string().required("old password is required"),
+  newPassword: yup
+    .string()
+    .oneOf(
+      [yup.ref("oldPassword"), undefined],
+      "old password & new password must match"
+    )
+    .required("new password is required"),
+});

@@ -8,6 +8,8 @@ import {
   TextStyle,
   StyleProp,
   ViewStyle,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
 } from "react-native";
 
 interface CustomOTPInputProps {
@@ -50,7 +52,10 @@ export const CustomOTPInput = ({
     }
   };
 
-  const handleKeyPress = (event: any, index: number) => {
+  const handleKeyPress = (
+    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    index: number
+  ) => {
     if (event.nativeEvent.key === "Backspace" && !otp[index] && index > 0) {
       const newOtp = [...otp];
       newOtp[index - 1] = "";

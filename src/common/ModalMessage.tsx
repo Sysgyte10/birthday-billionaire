@@ -9,6 +9,8 @@ export interface IModalMessageProps {
   msgType: "SUCCESS" | "ERROR" | "FAILED" | "WARNING";
   title: string;
   description: string;
+  btnTitle?: string;
+  onBtnClick?: () => void;
 }
 
 export interface IGlobalModalMessageRef {
@@ -21,6 +23,7 @@ export const ModalMessage = forwardRef<IGlobalModalMessageRef>((props, ref) => {
     msgType: "SUCCESS",
     title: "",
     description: "",
+    btnTitle: "",
   });
 
   useImperativeHandle(ref, () => ({
@@ -39,7 +42,9 @@ export const ModalMessage = forwardRef<IGlobalModalMessageRef>((props, ref) => {
               width: "100%",
               height: "60%",
             }}
-            onPress={() => setVisible(false)}
+            onPress={() => {
+              setVisible(false);
+            }}
           />
           <View style={styles.content}>
             <Image
@@ -75,8 +80,11 @@ export const ModalMessage = forwardRef<IGlobalModalMessageRef>((props, ref) => {
               {modalData.description}
             </CustomText>
             <CustomButton
-              title='OK'
-              onPress={() => setVisible(false)}
+              title={modalData?.btnTitle ? modalData?.btnTitle : "Ok"}
+              onPress={() => {
+                modalData?.onBtnClick?.();
+                setVisible(false);
+              }}
               buttonType='Solid'
               textType='medium'
               textWhite
