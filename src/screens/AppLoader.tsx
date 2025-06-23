@@ -9,7 +9,7 @@ import { AppWrapper } from "./AppWrapper";
 export const AppLoader = () => {
   return (
     <>
-      <CommonStatusBar style='light' bgColor={colors.black} />
+      <CommonStatusBar style='light' bgColor={colors.goldenRod} />
       <AppWrapper
         bgColor={colors.white}
         style={{

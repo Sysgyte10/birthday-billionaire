@@ -96,7 +96,9 @@ export const Login = ({
         />
         <TextAction
           actionLabel='I forgot my password'
-          onPressAction={() => {}}
+          onPressAction={() =>
+            navigation.navigate(authScreenNames.FORGOT_PASSWORD)
+          }
           actionStyle={{
             color: "#407BFF",
           }}

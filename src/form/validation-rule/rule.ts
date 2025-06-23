@@ -30,3 +30,10 @@ export const loginFormValidationRule = yup.object().shape({
   userName: yup.string().required("username is required"),
   password: yup.string().required("password is required"),
 });
+
+export const forgotPassFormValidationRule = yup.object().shape({
+  email: yup
+    .string()
+    .email("invalid email address")
+    .required("email is required"),
+});

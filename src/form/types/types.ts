@@ -15,3 +15,7 @@ export type loginFormTypes = {
   userName: string;
   password: string;
 };
+
+export type forgotPassFormTypes = {
+  email: string;
+};
